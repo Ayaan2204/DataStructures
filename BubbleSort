@@ -1,0 +1,59 @@
+#include <stdio.h>
+
+void input();
+void order();
+
+int a[100];
+int n;
+
+
+void main()
+{
+    input();
+    
+    order();
+}
+
+void input()
+{
+    int i=0;
+    int e;
+ 
+    printf("Enter size of DataSet \n");
+    scanf("%d",&n);
+    
+    for(int i = 0; i<n; i++) 
+    {
+        a[i]=(rand()%200)+1;
+    }
+    
+       for( i = 0; i<n; i++) //TEMPERORAY
+    {
+       printf("a[%d]=%d \n",i,a[i]);
+    }
+}; 
+
+void order()
+{
+    int i=0;
+    int j=0;
+    int dummy;
+    
+    for(i=0;i<n;i++)
+    {
+        for(j=0;j<n-i-1;j++)
+        {
+            if(a[j+1]<a[j])
+            {
+                dummy=a[j];
+                a[j]=a[j+1];
+                a[j+1]=dummy;
+            }
+        }
+    }
+    
+       for( i = 0; i<n; i++) //TEMPERORAY
+    {
+       printf("a[%d]=%d \n",i,a[i]);
+    }
+};
