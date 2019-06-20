@@ -1,0 +1,123 @@
+#include <stdio.h>
+
+void input();
+void order();
+void search();
+
+int a[100];
+int n;
+
+void main()
+{
+    input();
+    order();
+    search();
+}
+
+void input()
+{
+    int i=0;
+    int e;
+ 
+    printf("Enter size of DataSet \n");
+    scanf("%d",&n);
+    
+    for(int i = 0; i<n; i++) 
+    {
+        a[i]=(rand()%200)+1;
+    }
+    
+     for(int i = 0; i<n; i++) //TEMPERORAY
+    {
+       printf("a[%d]=%d \n",i,a[i]);
+    }
+    
+};
+
+void order()
+{
+    int i=0;
+    int j=0;
+    int min;
+    int minIndex;
+    int dummy;
+    for(i=0;i<n;i++)
+    {
+        min=a[i];
+        minIndex=i;
+        
+        for(j=i+1;j<n;j++)
+        {
+            if(a[j]<min)
+            {
+                min=a[j];
+                minIndex=j;
+            }
+        }
+        
+        dummy=a[i];
+        a[i]=min;
+        a[minIndex]=dummy;
+        
+   }
+    
+      for(int i = 0; i<n; i++) //TEMPERORAY
+    {
+       printf("a[%d]=%d \n",i,a[i]);
+    }
+};
+
+void search()
+{
+    int lowerIndex=0;
+    int upperIndex=n-1;
+    int midIndex;
+    
+    int search;
+    int i=0;
+    
+    int searchFinish=0;
+    int answerIndex;
+    
+    printf("Enter Search \n");
+    scanf("%d",&search);
+    
+    while(searchFinish==0)
+    {
+        
+        midIndex=(upperIndex+lowerIndex)/2;
+        
+        //Change limits
+        if(a[midIndex]>search)
+        {
+            upperIndex=midIndex;
+        }
+        else if(a[midIndex]<search)
+        {
+            lowerIndex=midIndex-1;
+        }
+        else if(a[midIndex]==search)
+        {
+            searchFinish=1;
+            answerIndex=midIndex;
+        }
+        
+        //Failure
+        
+        if(searchFinish==0&&(upperIndex-lowerIndex)<=1)
+        {
+            searchFinish=2;
+        }
+    }
+    
+    if(searchFinish==1)
+    {
+        printf("Number found at %d \n",answerIndex);
+    }
+    else if(searchFinish==2)
+    {
+        printf("Number not found \n");
+    }
+    
+};
+
