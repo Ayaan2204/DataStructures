@@ -1,0 +1,72 @@
+#include <stdio.h>
+
+void input();
+void order();
+int a[100];
+int arraysize;
+
+
+void main()
+{
+    int i;
+    
+    input();
+    order();
+    
+    for(i=0;i<arraysize;i++)
+    {
+        printf("a[%d]=%d \n",i,a[i]);
+    }
+}
+
+void input()
+{
+    int i;
+    printf("Enter array size \n");
+    scanf("%d",&arraysize);
+    
+    for(i=0;i<arraysize;i++)
+    {
+        a[i]=(rand()%200)+1;
+    }
+    
+    for(i=0;i<arraysize;i++)
+    {
+        printf("a[%d]=%d \n",i,a[i]);
+    }
+    
+};
+
+void order()
+{
+    int i;
+    int j;
+    int k;
+    int min;
+    int minIndex;
+    
+    
+    for(i=0;i<arraysize;i++)
+    {
+        min=a[i];
+        minIndex=i;
+        
+        for(j=i+1;j<arraysize;j++)
+        {
+            if(a[j]<min)
+            {
+                min=a[j];
+                minIndex=j;
+            }
+        }
+        
+        if(minIndex!=i)
+        {
+            for(j=minIndex-1;j>=i;j--)
+            {
+                a[j+1]=a[j];
+            }
+            a[i]=min;
+        }
+    }
+};
