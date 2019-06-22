@@ -8,8 +8,15 @@ int arraysize;
 
 void main()
 {
+    int i;
+    
     input();
-    order(0,arraysize);
+    order(0,arraysize-1);
+    
+    for(i=0;i<arraysize;i++)
+    {
+        printf("a[%d]=%d \n",i,a[i]);
+    }
 }
 
 void input()
@@ -20,7 +27,7 @@ void input()
     
     for(i=0;i<arraysize;i++)
     {
-        a[i]=(rand()%20)+1;
+        a[i]=(rand()%200)+1;
     }
     
     for(i=0;i<arraysize;i++)
@@ -34,49 +41,51 @@ void order(int p,int q)
 {
     int i;
     int j;
-    int pivot;
-    int lastSwapFrom;
+    int k;
+    
     int swaps;
     int dummy;
-    int k;
-    int lastSwapTo;//Final position of pivot
+    int exitCondition;
+    int pivot;
+    int pivotIndex;
     
-    pivot=a[q];//Declare pivot
-    lastSwapFrom=q;//Default location of pivot
+    swaps=0;
+    exitCondition=0;
+    pivot=a[q];
+    pivotIndex=q;
     
+   
     
-    
-    for(i=p;i<=q;i++)//Taking an index position
+    for(i=p;i<q&&exitCondition==0;i++)
     {
-        if(a[i]>pivot&&lastSwapFrom==q)//Insuring index is greater than pivot
+        if(a[i]>pivot)
         {
-            swaps=0;
-            for(j=i+1;j<=q&&swaps==0;j++)//Comparing pivot to numbers after index
+           swaps=0;
+            
+            for(j=i+1;j<=q&&exitCondition==0&&swaps==0;j++)
             {
-                if(a[j]<=pivot)//Checking for number less than or equal to pivot
+                if(a[j]<=pivot)
                 {
-                    dummy=a[j];
-                    a[j]=a[i];
-                    a[i]=dummy;
-                    lastSwapFrom=j;
-                    lastSwapTo=i;
-                    swaps=1; 
-                }
+                    dummy=a[i];
+                    a[i]=a[j];
+                    a[j]=dummy;
+                    pivotIndex=i;
+                    swaps=1;
                 
-                for(k=0;k<arraysize;k++)
-                {
-                    printf(" %d ",a[k]);
+                    if(j==q)
+                    {
+                        exitCondition=1;
+                    }
                 }
-                
-                 printf("\n\n");
             }
-           
+            
         }
     }
     
-    
-    
-    
-    
+    if(q-p>0)
+    {
+        order(p,pivotIndex-1);
+        order(pivotIndex+1,q);
+    }
     
 };
