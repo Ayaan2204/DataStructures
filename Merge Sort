@@ -1,0 +1,35 @@
+#include <stdio.h>
+
+void input();
+
+int a[100];
+int arraySize;
+
+void main()
+{
+    input();
+    
+}
+
+void input()
+{
+    int i=0;
+    
+    printf("Enter array size\n");
+    scanf("%d",&arraySize);
+    
+    for(i=0;i<arraySize;i++)
+    {
+        a[i]=(rand()%200)+1;
+    }
+    
+    for(i=0;i<arraySize;i++)
+    {
+        printf("a[%d]=%d",i,a[i]);
+    }
+};
+
+void order()//Call recursively
+{
+    
+}
