@@ -1,13 +1,21 @@
 #include <stdio.h>
 
 void input();
+void order(int gap);
 
 int a[100];
 int arraySize;
 
 void main()
 {
+    int i;
     input();
+    //order(arraySize/2);
+     for(i=0;i<arraySize;i++)
+    {
+        printf(" %d ",a[i]);
+    }
+    printf("\n\n");
     
 }
 
@@ -25,11 +33,32 @@ void input()
     
     for(i=0;i<arraySize;i++)
     {
-        printf("a[%d]=%d",i,a[i]);
+        printf(" %d ",a[i]);
     }
+    printf("\n\n");
 };
 
-void order()//Call recursively
+void order(int gap)//Call recursively
 {
+    int i;
+    int dummy;
     
-}
+    for(i=0;i+gap<arraySize;i++)
+    {
+        if(a[i]>a[i+gap])
+        {
+            dummy=a[i];
+            a[i]=a[i+gap];
+            a[i+gap]=dummy;
+        }
+    }
+    
+    
+    if(gap>1)
+    {
+        order(gap-1);
+    }
+   
+    
+    
+};
