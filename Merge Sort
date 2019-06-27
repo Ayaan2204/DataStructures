@@ -1,0 +1,118 @@
+#include <stdio.h>
+
+void input();
+void order();
+
+
+int a[100];
+int b[100];
+int arraySize;
+
+void main()
+{
+    int i;
+    input();
+    order();
+     for(i=0;i<arraySize;i++)
+    {
+        printf(" %d ",b[i]);
+    }
+    printf("\n\n");
+    
+}
+
+void input()
+{
+    int i=0;
+    
+    printf("Enter array size\n");
+    scanf("%d",&arraySize);
+    
+    for(i=0;i<arraySize;i++)
+    {
+        a[i]=(rand()%200)+1;
+    }
+    
+    for(i=0;i<arraySize;i++)
+    {
+        printf(" %d ",a[i]);
+    }
+    printf("\n\n");
+};
+void order()
+{
+    int i;
+    int x;//Distance of start point of next sub-array
+    int j;
+    int y;
+    int arraySize;
+    int exitCondition=0;
+    int inject=0;
+    int endPoint;
+    
+    x=2;
+    
+    
+    for(i=0;(i+x)<arraySize;i=i+x)
+    {
+        if(i+(2*x)<arraySize-1)
+        {
+            endPoint=i+(2*x);
+        }
+        else
+        {
+            endPoint=arraySize-1;
+        }
+        
+        j=0;
+        y=0;
+        
+        while(exitCondition==0)
+        {
+            if(a[i+j]<a[x+y])
+            {
+                b[inject]=a[i+j];
+                inject++;
+                j++;
+            }
+            else
+            {
+                b[inject]=a[x+y];
+                inject++;
+                y++;
+            }
+            
+            if(i+j==x)
+            {
+                exitCondition=1;
+                
+                while((x+y)<endPoint)
+                {
+                    b[inject]=a[x+y];
+                    inject++;
+                    y++;
+                }
+            }
+            
+            else if(x+y==endPoint)
+            {
+                exitCondition=1;
+                
+                while((i+j)<x)
+                {
+                    b[inject]=a[i+j];
+                    inject++;
+                    j++;
+                }
+            }
+            
+            else if(inject==arraySize)
+            {
+                exitCondition=1;
+            }
+            
+            
+        }
+      
+    }
+};
