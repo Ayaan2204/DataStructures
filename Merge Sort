@@ -1,21 +1,22 @@
 #include <stdio.h>
 
 void input();
-void order();
+void order(int gap,int a[100],int b[100]);
 
 
-int a[100];
-int b[100];
+int A1[100];
+int A2[100];
 int arraySize;
+int rotation=0;
 
 void main()
 {
     int i;
     input();
-    order();
+    order(1,A1,A2);
      for(i=0;i<arraySize;i++)
     {
-        printf(" %d ",b[i]);
+        printf(" %d ",A2[i]);
     }
     printf("\n\n");
     
@@ -30,89 +31,120 @@ void input()
     
     for(i=0;i<arraySize;i++)
     {
-        a[i]=(rand()%200)+1;
+        A1[i]=(rand()%200)+1;
     }
     
     for(i=0;i<arraySize;i++)
     {
-        printf(" %d ",a[i]);
+        A2[i]=201;
+    }
+    
+    for(i=0;i<arraySize;i++)
+    {
+        printf(" %d ",A1[i]);
     }
     printf("\n\n");
 };
-void order()
+
+
+void order(int gap,int a[100],int b[100])
 {
-    int i;
-    int x;//Distance of start point of next sub-array
-    int j;
-    int y;
-    int arraySize;
-    int exitCondition=0;
+    int oneStart;
+    int oneStop;
+    int twoStart;
+    int twoStop;
+    int endCondition=0;
+    int p;
+    int q;
     int inject=0;
-    int endPoint;
+    int flag1=0;
+    int i;
     
-    x=2;
-    
-    
-    for(i=0;(i+x)<arraySize;i=i+x)
-    {
-        if(i+(2*x)<arraySize-1)
-        {
-            endPoint=i+(2*x);
-        }
-        else
-        {
-            endPoint=arraySize-1;
-        }
-        
-        j=0;
-        y=0;
-        
-        while(exitCondition==0)
-        {
-            if(a[i+j]<a[x+y])
-            {
-                b[inject]=a[i+j];
+   for(oneStart = 0; inject<arraySize ; oneStart = twoStop+1)
+   {
+       //Assign Values
+       oneStop=oneStart+gap-1;
+       twoStart=oneStart+gap;
+       twoStop=oneStop+gap;
+       p=0;
+       q=0;
+       endCondition=0;
+       if(twoStart>=arraySize&&flag1==0)
+       {
+           
+       }
+       
+    //   printf("oneStart=%d \n",oneStart);
+    //   printf("oneStop=%d \n",oneStop);
+    //   printf("twoStart=%d \n",twoStart);
+    //   printf("twoStop=%d \n",twoStop);
+    //   printf("gap=%d \n",gap);
+       
+       
+       //Compare sub-arrays
+       while(endCondition==0)
+       {
+           if(a[oneStart+p]<a[twoStart+q])
+           {
+               b[inject]=a[oneStart+p];
+               inject++;
+               p++;
+           }
+           else
+           {
+                b[inject]=a[twoStart+q];
                 inject++;
-                j++;
-            }
-            else
-            {
-                b[inject]=a[x+y];
-                inject++;
-                y++;
-            }
-            
-            if(i+j==x)
-            {
-                exitCondition=1;
-                
-                while((x+y)<endPoint)
-                {
-                    b[inject]=a[x+y];
+                q++;
+           }
+           
+           if((oneStart+p)>oneStop)
+           {
+               endCondition=1;
+               while((twoStart+q)<=twoStop)
+               {
+                    b[inject]=a[twoStart+q];
                     inject++;
-                    y++;
-                }
-            }
-            
-            else if(x+y==endPoint)
-            {
-                exitCondition=1;
-                
-                while((i+j)<x)
-                {
-                    b[inject]=a[i+j];
+                    q++;
+               }
+           }
+           else if((twoStart+q)>twoStop)
+           {
+               endCondition=1;
+               while((oneStart+p)<=oneStop)
+               {
+                    b[inject]=a[oneStart+p];
                     inject++;
-                    j++;
-                }
-            }
-            
-            else if(inject==arraySize)
+                    p++;
+               }
+           }
+           printf("inject=%d \n",inject);
+         
+           
+       }
+       
+         for(i=0;i<arraySize;i++)
             {
-                exitCondition=1;
+                printf(" %d ",b[i]);
             }
-            
-            
-        }
+         printf("\n\n");
       
-    }
+   }
+   
+   if(gap<arraySize/2)
+   {
+        for(i=0;i<arraySize;i++)
+        {
+            a[i]=b[i];
+        }
+        for(i=0;i<arraySize;i++)
+        {
+            b[i]=201;
+        }
+        
+       order(gap*2,a,b);
+   }
+   
+    
+    
 };
+
