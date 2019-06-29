@@ -9,15 +9,27 @@ int A1[100];
 int A2[100];
 int arraySize;
 int rotation=0;
+int maxGap=1;
 
 void main()
 {
     int i;
+    int flag=0;
     input();
+    
+    while(flag==0)
+    {
+        maxGap=maxGap*2;
+        if(maxGap>=arraySize/2)
+        {
+            flag=1;
+        }
+    }
+    
     order(1,A1,A2);
      for(i=0;i<arraySize;i++)
     {
-        printf(" %d ",A2[i]);
+        printf("a[%d]=%d \n",i,A2[i]);
     }
     printf("\n\n");
     
@@ -40,11 +52,7 @@ void input()
         A2[i]=201;
     }
     
-    for(i=0;i<arraySize;i++)
-    {
-        printf(" %d ",A1[i]);
-    }
-    printf("\n\n");
+   
 };
 
 
@@ -74,7 +82,7 @@ void order(int gap,int a[100],int b[100])
        {
            oneStop=arraySize-1;
            endCondition=1;
-           printf("Special Inject \n");
+           
             while((oneStart+p)<=oneStop)
            {
                 b[inject]=a[oneStart+p];
@@ -83,15 +91,13 @@ void order(int gap,int a[100],int b[100])
            }
            flag1=1;
        }
+       else if(twoStart<arraySize&&twoStop>=arraySize&&flag1==0)
+       {
+           twoStop=arraySize-1;
+           flag1=1;
+       }
        
-    //   printf("oneStart=%d \n",oneStart);
-    //   printf("oneStop=%d \n",oneStop);
-    //   printf("twoStart=%d \n",twoStart);
-    //   printf("twoStop=%d \n",twoStop);
-    //   printf("gap=%d \n",gap);
-       
-       
-       //Compare sub-arrays
+      //Compare sub-arrays
        while(endCondition==0)
        {
            if(a[oneStart+p]<a[twoStart+q])
@@ -127,34 +133,37 @@ void order(int gap,int a[100],int b[100])
                     p++;
                }
            }
-           printf("inject=%d \n",inject);
+          
          
            
        }
        
-         for(i=0;i<arraySize;i++)
-            {
-                printf(" %d ",b[i]);
-            }
-         printf("\n\n");
+        
       
    }
    
-   if(gap<arraySize/2)
+   if(gap<maxGap)
    {
         for(i=0;i<arraySize;i++)
         {
             a[i]=b[i];
         }
-        for(i=0;i<arraySize;i++)
+         for(i=0;i<arraySize;i++)
         {
             b[i]=201;
         }
         
-       order(gap*2,a,b);
+        if(gap*2>maxGap)
+        {
+            gap=maxGap;
+        }
+        else
+        {
+            gap=gap*2;
+        }
+        
+       order(gap,a,b);
    }
    
     
-    
 };
-
