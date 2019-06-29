@@ -1,3 +1,4 @@
+
 #include <stdio.h>
 
 void input();
@@ -69,9 +70,18 @@ void order(int gap,int a[100],int b[100])
        p=0;
        q=0;
        endCondition=0;
-       if(twoStart>=arraySize&&flag1==0)
+       if(oneStart<arraySize&&twoStart>=arraySize&&flag1==0)
        {
-           
+           oneStop=arraySize-1;
+           endCondition=1;
+           printf("Special Inject \n");
+            while((oneStart+p)<=oneStop)
+           {
+                b[inject]=a[oneStart+p];
+                inject++;
+                p++;
+           }
+           flag1=1;
        }
        
     //   printf("oneStart=%d \n",oneStart);
